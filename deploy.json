@@ -11,7 +11,7 @@
     },
     "adminUsername": {
       "type": "string",
-      "defaultValue": "localAdmin",
+      "defaultValue": "ADAdmin",
       "metadata": {
         "description": "Username to set for the local User. Cannot be \"Administrator\", \"root\" and possibly other such common account names. "
       }
