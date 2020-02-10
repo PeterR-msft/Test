@@ -20,8 +20,10 @@
 * The NSG is defined for reference, but is isn't production-ready as holes are also opened for RDP, and public IPs are allocated
 * One VM size is specified for all VMs
 
+
 ## NOTICE/WARNING
 * This template is explicitly designed for a lab/classroom environment. A few compromises were made, especially with regards to credential passing to DSC, that WILL result in clear text passwords being left behind in the DSC package folders, Azure log folders, and system event logs on the resulting VMs. 
+ 
  
 ## Contributing
 
