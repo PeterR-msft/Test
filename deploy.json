@@ -4,7 +4,7 @@
   "parameters": {
     "assetLocation": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "https://raw.githubusercontent.com/PeterR-msft/Test/master/",
       "metadata": {
         "description": "This is the location in which all the linked templates are stored."
       }
