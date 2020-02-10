@@ -69,6 +69,16 @@
           "FName": "Sue",
           "LName": "Jackson",
           "SAM": "sjackson"
+        },
+        {
+          "FName": "Jack",
+          "LName": "Petersen",
+          "SAM": "jpetersen"
+        },
+        {
+          "FName": "Julia",
+          "LName": "Williams",
+          "SAM": "jwilliams"
         }
       ],
       "metadata": {
