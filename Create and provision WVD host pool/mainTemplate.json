@@ -7,7 +7,7 @@
             "metadata": {
                 "description": "The base URI where artifacts required by this template are located."
             },
-            "defaultValue": "https://raw.githubusercontent.com/PeterR-msft/M365WVDWS/master/Create%20and%20provision%20WVD%20host%20pool/"
+            "defaultValue": "https://raw.githubusercontent.com/PeterR-msft/test/master/Create%20and%20provision%20WVD%20host%20pool/"
         },
         "_artifactsLocationSasToken": {
             "type": "securestring",
@@ -24,6 +24,7 @@
             "defaultValue": "Gallery",
             "allowedValues": [
                 "SharedImageGallery",
+                "ForeignSharedImageGallery",
                 "CustomVHD",
                 "CustomImage",
                 "Gallery"

@@ -3,7 +3,7 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"_artifactsLocation": {
-			"value": "https://raw.githubusercontent.com/PeterR-msft/M365WVDWS/master/Create%20and%20provision%20WVD%20host%20pool/"
+			"value": "https://raw.githubusercontent.com/PeterR-msft/test/master/Create%20and%20provision%20WVD%20host%20pool/"
 		},
 		"rdshImageSource": {
 			"value": "SharedImageGallery"
