@@ -30,6 +30,24 @@
                 "Gallery"
             ]
         },
+        "ForeignTenantID": {
+            "type": "string",
+            "metadata": {
+                "description": "Directory/TeanantID of the foreign tenant where the foreign SIG you want to deploy from is located"
+            }
+        },
+        "ForeignUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "Username to foreign tenant"
+            }
+        },
+        "ForeignPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Password to user for foreign tenant"
+            }
+        },
         "SharedImageGalleryResourceGroup": {
 			"type": "string",
 			"metadata": {
@@ -342,6 +360,12 @@
                     "vmImageVhdUri": {
                         "value": "[parameters('vmImageVhdUri')]"
                     },
+                    "ForeignTenantID": {
+                        "value": "[parameters('ForeignTenantID')]"
+                    },
+                    "ForeignUsername": {
+                        "value": "[parameters('ForeignUsername')]"
+                    },
                     "storageAccountResourceGroupName": {
                         "value": "[parameters('storageAccountResourceGroupName')]"
                     },
@@ -399,6 +423,9 @@
                     "enablePersistentDesktop": {
                         "value": "[parameters('enablePersistentDesktop')]"
                     }
+                },
+                "protectedSettings": {
+                    "password": "[parameters('ForeignPassword')]"
                 }
             }
         },
