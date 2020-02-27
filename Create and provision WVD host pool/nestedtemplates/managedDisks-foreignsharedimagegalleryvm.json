@@ -225,7 +225,7 @@
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "id": "[resourceId(parameters('SharedImageGalleryResourceGroup'),'Microsoft.Compute/galleries/images/versions',parameters('SharedImageGalleryName'), parameters('SharedImageGalleryDefinitionName'), parameters('SharedImageGalleryVersionName') )]"
+                        "id": "/subscriptions/94049871-6f70-4a7b-b92b-da5ea6ecd3dd/resourceGroups/PRISIG-RG/providers/Microsoft.Compute/galleries/PRISIG/images/Win10Imagedef/versions/0.0.1"
                     },
                     "osDisk": {
                         "createOption": "FromImage",
