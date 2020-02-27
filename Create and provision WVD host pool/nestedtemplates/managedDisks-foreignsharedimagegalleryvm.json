@@ -2,22 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "ForeignTenantID": {
+        "VmImageVhdUri": {
             "type": "string",
             "metadata": {
-                "description": "Directory/TeanantID of the foreign tenant where the foreign SIG you want to deploy from is located"
-            }
-        },
-        "ForeignUsername": {
-            "type": "string",
-            "metadata": {
-                "description": "Username to foreign tenant"
-            }
-        },
-        "ForeignPassword": {
-            "type": "securestring",
-            "metadata": {
-                "description": "Password to user for foreign tenant"
+                "description": "URI of the sysprepped image vhd file to be used to create the session host VMs. For example, https://rdsstorage.blob.core.windows.net/vhds/sessionhostimage.vhd"
             }
         },
         "storageAccountResourceGroupName": {
@@ -50,6 +38,19 @@
 				"description": "Name of the Image Version - should follow <MajorVersion>.<MinorVersion>.<Patch>."
 			}
 		},
+        "rdshGalleryImageSKU": {
+            "type": "string",
+            "allowedValues": [
+                "Windows-10-Enterprise-multi-session-with-Office-365-ProPlus",
+                "Windows-10-Enterprise-multi-session",
+                "Windows-10-Enterprise-1903",
+                "2016-Datacenter",
+                "2019-Datacenter"
+            ],
+            "metadata": {
+                "description": "Gallery image SKU."
+            }
+        },
         "rdshPrefix": {
             "type": "string",
             "metadata": {
@@ -101,10 +102,30 @@
                 "description": "The password that corresponds to the existing domain username."
             }
         },
+        "vhds": {
+            "type": "string",
+            "metadata": {
+                "description": "The URL to store unmanaged disks."
+            }
+        },
         "subnet-id": {
             "type": "string",
             "metadata": {
                 "description": "The unique id of the subnet for the nics."
+            }
+        },
+        "rdshImageSourceResourceGroup": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Resource group name for the managed disk, if you choose to provide one."
+            }
+        },
+        "rdshImageSourceName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Name of the managed disk."
             }
         },
         "location": {
@@ -123,8 +144,34 @@
         }
     },
     "variables": {
+        "galleryImage": {
+            "Windows-10-Enterprise-multi-session-with-Office-365-ProPlus": {
+                "galleryPublisher": "MicrosoftWindowsDesktop",
+                "galleryOffer": "office-365",
+                "gallerySku": "1903-evd-o365pp"
+            },
+            "Windows-10-Enterprise-multi-session": {
+                "galleryPublisher": "MicrosoftWindowsDesktop",
+                "galleryOffer": "Windows-10",
+                "gallerySku": "19h1-evd"
+            },
+            "Windows-10-Enterprise-1903": {
+                "galleryPublisher": "MicrosoftWindowsDesktop",
+                "galleryOffer": "Windows-10",
+                "gallerySku": "19h1-entn"
+            },
+            "2016-Datacenter": {
+                "galleryPublisher": "MicrosoftwindowsServer",
+                "galleryOffer": "WindowsServer",
+                "gallerySku": "2016-Datacenter"
+            },
+            "2019-Datacenter": {
+                "galleryPublisher": "MicrosoftwindowsServer",
+                "galleryOffer": "WindowsServer",
+                "gallerySku": "2019-Datacenter"
+            }
+        },
         "storageAccountType": "[parameters('rdshVMDiskType')]",
-        "foreignsubscriptionid": "94049871-6f70-4a7b-b92b-da5ea6ecd3dd",
         "availabilitySetId": {
             "id": "[if(equals(parameters('enablePersistentDesktop'),bool('False')),resourceId('Microsoft.Compute/availabilitySets/', concat(parameters('rdshPrefix'), 'availabilitySet')),json('null'))]"
         }
@@ -178,7 +225,7 @@
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "id": "/subscriptions/94049871-6f70-4a7b-b92b-da5ea6ecd3dd/resourceGroups/PRISIG-RG/providers/Microsoft.Compute/galleries/PRISIG/images/Win10Imagedef/versions/0.0.1"
+                        "id": "[resourceId(parameters('SharedImageGalleryResourceGroup'),'Microsoft.Compute/galleries/images/versions',parameters('SharedImageGalleryName'), parameters('SharedImageGalleryDefinitionName'), parameters('SharedImageGalleryVersionName') )]"
                     },
                     "osDisk": {
                         "createOption": "FromImage",
