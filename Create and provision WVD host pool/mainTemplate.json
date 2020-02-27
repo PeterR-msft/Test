@@ -342,12 +342,6 @@
                     "vmImageVhdUri": {
                         "value": "[parameters('vmImageVhdUri')]"
                     },
-                    "ForeignTenantID": {
-                        "value": "[parameters('ForeignTenantID')]"
-                    },
-                    "ForeignUsername": {
-                        "value": "[parameters('ForeignUsername')]"
-                    },
                     "storageAccountResourceGroupName": {
                         "value": "[parameters('storageAccountResourceGroupName')]"
                     },
@@ -405,9 +399,6 @@
                     "enablePersistentDesktop": {
                         "value": "[parameters('enablePersistentDesktop')]"
                     }
-                },
-                "protectedSettings": {
-                    "password": "[parameters('ForeignPassword')]"
                 }
             }
         },
